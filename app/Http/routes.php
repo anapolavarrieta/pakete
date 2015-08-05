@@ -279,7 +279,7 @@ Route::post('/edit_user/{id}',
 
 Route::get('/delete_user/{id}', 
 	array(
-		'before'=>'auth|admin',
+		
 		function($id){
 			$user= User::findOrFail($id);
 			foreach($user->register as $register){
