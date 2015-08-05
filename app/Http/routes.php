@@ -254,7 +254,7 @@ Route::post('/excel',['middleware' => 'admin', 'uses' => 'UsersController@excel'
 Route::get('/editar_usuario',function()
 {
 
-	$user=App\User::find(3);
+	$user=App\User::find(2);
 	$user->admin='1';
 	$user->save();
 

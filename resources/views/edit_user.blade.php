@@ -9,9 +9,6 @@
 			{!!Form::label('email','Email:')!!}
 			{!!Form::text('email')!!}
 			<br><br>
-			{!!Form::label('password', 'Password:')!!}
-			{!!Form::password('password')!!}
-			<br><br>
 			{!!Form::label('name', 'Nombre:')!!}
 			{!!Form::text('name')!!}
 			<br><br>
