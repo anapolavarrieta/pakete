@@ -80,6 +80,25 @@ class UsersController extends Controller {
 			}
 	}
 
+	public function editar_usuario()
+	{
+		$user=\App\User::find(3);
+		$user->admin='1';
+		$user->save();
+
+	return 'Se edito';
+	}
+	public function delete_user($id)
+	{
+			$user= App\User::findOrFail($id);
+			foreach($user->register as $register){
+				$register->delete();
+			}
+			$user->delete();
+			return Redirect::to('/admin')
+						->with('flash_message','El usuario se ha eliminado');
+	}
+
 	public function reportes()
 	{
 		$users= \App\User::all();

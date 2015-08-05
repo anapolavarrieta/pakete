@@ -242,7 +242,7 @@ Route::get('/users_hours', ['middleware' => 'admin', 'uses' => 'UsersController@
 
 Route::get('/userhours/{id}', ['middleware' => 'admin', 'uses' => 'UsersController@userhoursid']);
 
-Route::get('/edit_user/{id}', ['middleware'=> 'auth', 'as'=>'user.update', 'uses'=> 'UsersController@edit_user']);
+#Route::get('/edit_user/{id}', ['middleware'=> 'auth', 'as'=>'user.update', 'uses'=> 'UsersController@edit_user']);
 
 Route::get('/reportes', ['middleware'=> 'admin', 'uses'=> 'UsersController@reportes']);
 
@@ -251,17 +251,7 @@ Route::post('/reportes',['middleware' => 'admin', 'uses' => 'UsersController@use
 Route::post('/excel',['middleware' => 'admin', 'uses' => 'UsersController@excel']);
 	
 
-Route::get('/editar_usuario',function()
-{
-
-	$user=App\User::find(3);
-	$user->admin='1';
-	$user->save();
-
-	return 'Se edito';
-});
-
-
+Route::get('/editar_usuario',['middleware' => 'admin', 'uses' => 'UsersController@editar_usuario']);
 	
 
 Route::post('/edit_user/{id}',
@@ -277,21 +267,8 @@ Route::post('/edit_user/{id}',
 	)
 );
 
-Route::get('/delete_user/{id}', 
-	array(
-		
-		function($id){
-			$user= App\User::findOrFail($id);
-			foreach($user->register as $register){
-				$register->delete();
-			}
-			$user->delete();
-			return Redirect::to('/admin')
-						->with('flash_message','El usuario se ha eliminado');
+Route::get('/delete_user/{id}', ['middleware' => 'admin', 'uses' => 'UsersController@delete_user']);
 
-		}
-	)
-);
 
 Route::get('/paginas', function()
 {
