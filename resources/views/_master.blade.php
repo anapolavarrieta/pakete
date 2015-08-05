@@ -9,6 +9,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 	<script src="{{URL::asset('/css/Bootstrap/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="/path/to/bootstrap-datetimepicker.min.js"></script>
 </head>
 
 <body>
@@ -50,7 +51,7 @@
 						@if(Auth::user()->admin==1)
 							<ul class="nav navbar-nav">
 								<li clas="userlist"><a class="user" href='/admin'>Lista usuarios </a></li>
-								<li clas="userlist"><a class="user" href='/users_hours'>Horas de usuarios</a></li>
+								<li clas="userlist"><a class="user" href='/reportes'>Reportes</a></li>
            						<li clas="userlist"><a class="user" href='/paginas'>Paginas</a></li>
            					</ul>
            				@else

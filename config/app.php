@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Collective\Html\HtmlServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -196,6 +197,7 @@ return [
 		'Pre'       => 'Paste\Pre',
 		'Form' 		=> 'Collective\Html\FormFacade',
 		'Html' 		=> 'Collective\Html\HtmlFacade',
+		'Excel' 	=> 'Maatwebsite\Excel\Facades\Excel',
 
 	],
 

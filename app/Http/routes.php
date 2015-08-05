@@ -184,9 +184,11 @@ Route::post('/entry',function()
 	$user= App\User::find(Auth::id());
 	$register=new App\Register();
 	$register->lat=Input::get('latitude');
-	$register->lon=Input::get('longitude');
+	$register->lon= Input::get('longitude');
 	$flag= "Se ha registrado tu entrada";
-	if(($register->lat <= 19.29) && ($register->lat>=19.27) && ($register->lon <=-99.14) && ($register->lon>= -99.17)){
+	$x= $register->lat - 19.287564;
+	$y= $register->lon + 99.159166;
+	if( ($x*$x) + ($y*$y) <= (0.008970525 * 0.008970525)){
 		$register->type='entry';
 	}
 	elseif($register->lat == 0 && $register->lon == 0){
@@ -210,8 +212,10 @@ Route::post('/exit',function()
 	$register->lat=Input::get('latitude2');
 	$register->lon=Input::get('longitude2');
 	$flag= "Se ha registrado tu salida";
-	if(($register->lat <= 19.29) && ($register->lat>=19.27) && ($register->lon <=-99.14) && ($register->lon>= -99.17)){
-			$register->type='exit';
+	$x= $register->lat - 19.287564;
+	$y= $register->lon + 99.159166;
+	if( ($x*$x) + ($y*$y) <= (0.008970525 * 0.008970525)){
+		$register->type='entry';
 	}
 	elseif($register->lat == 0 && $register->lon == 0){
 		$register->type='error en direccion';
@@ -240,10 +244,17 @@ Route::get('/userhours/{id}', ['middleware' => 'admin', 'uses' => 'UsersControll
 
 Route::get('/edit_user/{id}', ['middleware'=> 'auth', 'as'=>'user.update', 'uses'=> 'UsersController@edit_user']);
 
+Route::get('/reportes', ['middleware'=> 'admin', 'uses'=> 'UsersController@reportes']);
+
+Route::post('/reportes',['middleware' => 'admin', 'uses' => 'UsersController@userhoursid']);
+
+Route::post('/excel',['middleware' => 'admin', 'uses' => 'UsersController@excel']);
+	
+
 Route::get('/editar_usuario',function()
 {
 
-	$user=App\User::find(1);
+	$user=App\User::find(3);
 	$user->admin='1';
 	$user->save();
 
@@ -286,6 +297,8 @@ Route::get('/paginas', function()
 {
 	return View::make('paginas');
 });
+
+
 
 
 Route::get('mysql-test', function() {

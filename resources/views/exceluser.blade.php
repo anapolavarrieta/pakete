@@ -1,11 +1,4 @@
-@extends('_master')
-
-	@section ('title')
-		Horario Usuario
-	@stop
-
-	@section('content')
-		<h2> Usuario: {{$user->name}} {{$user->last_name}}
+<h2> Usuario: {{$user->name}} {{$user->last_name}} </h2>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<?php $flag=1; ?>
@@ -48,13 +41,3 @@
 					@endforeach
 				</tbody>	
 			</table>
-			{!!Form::open(array('url'=>'/excel'))!!}
-				{!!Form::hidden('id', $id)!!}
-				{!!Form::hidden('date1', $date1)!!}
-				{!!Form::hidden('hour1', $hour1)!!}
-				{!!Form::hidden('lat', $lat)!!}
-				{!!Form::submit('Exportar a Excel', ['class'=> 'btn btn-info form-control'])!!}
-			{!!Form::close()!!}
-		</div>
-	@stop
-@stop

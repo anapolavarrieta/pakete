@@ -38,24 +38,33 @@ class UsersController extends Controller {
 	}
 	
 
-	public function userhoursid($id)
+	public function userhoursid()
 	{
+		$date1= \Input::get('date1');
+		$daet2= \Input::get('date2');
+		$id= \Input::get('usuario');
+		$users= \App\User::all();
+
+		if ($id == "all"){
+			return View('alluserhours')
+				->with ('users', $users)
+				->with ('id', $id);
+		}
+		else{
 		$user= \App\User::findOrFail($id);
 		$first_reg= $user->register()->first();			
-		try{
-			
+		if($first_reg){
 				$date1= $first_reg->date;
 				$hour1= $first_reg->time;
 				return View('userhours')
 						->with('user', $user)
 						->with('date1', $date1)
 						->with ('hour1', $hour1)
-						->with ('lat', $first_reg->lat);
+						->with ('lat', $first_reg->lat)
+						->with ('id', $id);
 			}
-		catch (Exception $e){
-				return Redirect('/users_hours')
-					->with('flash_message','El usuario no tiene registros');
-			}
+		return Redirect('/reportes')->with('flash_message','El usuario no tiene registros');
+		}
 		
 	}
 
@@ -69,6 +78,46 @@ class UsersController extends Controller {
 		catch (Exception $e){
 				return Redirect('users_hours');
 			}
+	}
+
+	public function reportes()
+	{
+		$users= \App\User::all();
+		$users= \App\User::select ('id', \DB::raw('CONCAT(name, " ", last_name) AS full_name'))
+						-> orderBy ('name')
+						-> lists ('full_name', 'id');
+		
+		return View('reportes')->with('users',$users);
+	}
+
+	public function excel()
+	{
+   		 $excel= \Excel::create('Reporte', function ($excel){
+   		 	$excel->sheet('Reporte', function ($sheet){
+
+   		 		$id = \Input::get('id');
+   		 		if ($id == 'all'){
+   		 			$users= \App\User::all();
+   		 			$sheet->loadView('excelallusers')
+   		 		      	  ->with ('users', $users);
+   		 		}
+   		 		else{
+   		 		$user= \App\User::findOrFail($id);
+   		 		$date1 = \Input::get('date1'); 
+   		 		$hour1 = \Input::get('hour1'); 
+   		 		$lat = \Input::get('lat'); 
+   		 		$sheet->loadView('exceluser')
+   		 		      ->with ('user', $user)
+   		 		      ->with ('date1', $date1)
+   		 		      ->with ('hour1', $hour1)
+   		 		      ->with ('lat',$lat);
+   		 		}
+   		 		});
+   		 	
+
+   		});
+       
+    	 return  $excel->export('xls'); 
 	}
 	
 
