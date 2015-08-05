@@ -281,7 +281,7 @@ Route::get('/delete_user/{id}',
 	array(
 		
 		function($id){
-			$user= User::findOrFail($id);
+			$user= App\User::findOrFail($id);
 			foreach($user->register as $register){
 				$register->delete();
 			}
