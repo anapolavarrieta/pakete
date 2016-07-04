@@ -14,5 +14,8 @@
 			<br><br>
 			{!!Form::submit ('Entrar')!!}
 		{!!Form::close()!!}
+	</br>
+
+		<p> <a href="/password/email">¿Olvidáste tu contraseña? </a></p>
 	@stop
 @stop

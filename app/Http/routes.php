@@ -156,6 +156,12 @@ Route::get('/logout', function()
 	return Redirect::to('/');
 });
 	
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+/*
 Route::get('password/reset', array(
   'uses' => 'RemindersController@getRemind',
   'as' => 'passwordremind'
@@ -174,7 +180,7 @@ Route::get('password/reset/{token}', array(
 Route::post('password/reset/{token}', array(
   'uses' => 'RemindersController@postReset',
   'as' => 'password.update'
-));
+));*/
 
 Route::get('/user_home', ['middleware' => 'auth', 'uses' => 'UsersController@home']);
 

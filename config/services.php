@@ -15,8 +15,8 @@ return [
 	*/
 
 	'mailgun' => [
-		'domain' => '',
-		'secret' => '',
+		'domain' => 'paketealivianes.org',
+		'secret' => 'key-a3af2e927ae103dd31800b68e3ae45d8',
 	],
 
 	'mandrill' => [
